@@ -416,18 +416,18 @@ def create_team_guide():
         story.append(Paragraph(f"<b>{i}.</b> {s}", styles['bullet']))
     story.append(Spacer(1, 0.3*cm))
 
-    story.append(Paragraph("Netzwerk in VirtualBox konfigurieren (Internes Netz):", styles['h3']))
+    story.append(Paragraph("Netzwerk in VirtualBox konfigurieren (Empfohlen: 2 Adapter für Internet + Gruppennetz):", styles['h3']))
     story.append(Paragraph(
-        "Damit Server-VM und Client-VM miteinander kommunizieren können, müssen beide VMs "
-        "im selben <b>Internen Netzwerk</b> sein:",
+        "Um gleichzeitig <b>Internet</b> (für Skripte/Downloads) und das <b>interne Gruppen-Netzwerk</b> zu haben, "
+        "empfehlen wir 2 Netzwerkadapter pro VM:",
         styles['body']
     ))
     net_steps = [
-        "VM auswählen → Klick auf 'Ändern' (Settings)",
-        "Klick auf 'Netzwerk' (links)",
-        "Adapter 1: Aktiviert ✓",
+        "VM auswählen → Klick auf 'Ändern' (Einstellungen ➔ Netzwerk)",
+        "Adapter 1: 'NAT' belassen (Gibt der VM automatisches Internet!)",
+        "Reiter 'Adapter 2' anklicken → Haken bei 'Netzwerkadapter aktivieren' setzen ✅",
         "Angeschlossen an: 'Internes Netzwerk' wählen",
-        "Name: intnet-gruppe4 eingeben",
+        "Name: intnet-gruppe4 eintragen",
         "OK klicken",
         "Das Gleiche für BEIDE VMs (Server UND Client)!",
     ]
@@ -436,16 +436,15 @@ def create_team_guide():
 
     story.append(Spacer(1, 0.3*cm))
     warn_box = Table([[Paragraph(
-        "⚠️ WICHTIGER HINWEIS ZUM FOTO / SETTINGS-DIALOG:<br/>"
-        "• <b>FALSCH:</b> 'Angeschlossen an: Netzwerkbrücke' (wie im Screenshot)<br/>"
-        "• <b>RICHTIG:</b> Dropdown 'Angeschlossen an' anklicken ➔ <b>'Internes Netzwerk'</b> wählen!<br/>"
-        "• <b>NAME:</b> Im Feld 'Name' den Wert <b>intnet-gruppe4</b> eintragen.<br/>"
-        "• <b>ADAPTER-TYP:</b> Das Feld 'Adapter-Typ' (z.B. Intel PRO/1000 MT) kann einfach auf Standard bleiben!",
+        "💡 DUAL-ADAPTER VORTEIL:<br/>"
+        "• <b>Adapter 1 (NAT):</b> Gibt der VM sofortiges Internet für den 1-Klick-Download des Skripts.<br/>"
+        "• <b>Adapter 2 (Internes Netz):</b> Verbindet Server und Client isoliert im Subnetz 172.16.40.0/24.<br/>"
+        "• <b>Adapter-Typ:</b> Kann bei allen Adaptern auf Standard (Intel PRO/1000 MT) bleiben.",
         styles['warning']
     )]], colWidths=[W])
     warn_box.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#fff8e1')),
-        ('BOX', (0, 0), (-1, -1), 1.5, ORANGE_WARN),
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#e8f5e9')),
+        ('BOX', (0, 0), (-1, -1), 1.5, GREEN_OK),
         ('LEFTPADDING', (0, 0), (-1, -1), 12),
         ('TOPPADDING', (0, 0), (-1, -1), 8),
         ('BOTTOMPADDING', (0, 0), (-1, -1), 8),
