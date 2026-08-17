@@ -187,8 +187,8 @@ UsePAM yes
 X11Forwarding yes
 PrintMotd no
 
-# Erlaubte Verbindungen nur aus dem eigenen Netzwerk
-AllowUsers *@172.16.40.*
+# Erlaubte Verbindungen (UFW regelt den Netzwerk-Zugriff)
+# AllowUsers *@172.16.40.*
 
 # Sftp aktivieren
 Subsystem sftp /usr/lib/openssh/sftp-server
