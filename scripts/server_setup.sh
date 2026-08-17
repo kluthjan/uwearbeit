@@ -132,6 +132,9 @@ EOF
 update_system() {
     print_header "SCHRITT 2: System aktualisieren"
     
+    # Remove unmounted cdrom repository if present
+    sed -i '/cdrom/d' /etc/apt/sources.list 2>/dev/null || true
+    
     export DEBIAN_FRONTEND=noninteractive
     export NEEDRESTART_MODE=a
     apt-get update -y
