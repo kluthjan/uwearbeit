@@ -77,8 +77,10 @@ Das Script richtet automatisch ein:
 
 ## 🔧 Manuelle Einrichtung
 
-### Schritt 1: VirtualBox konfigurieren
-- Beide VMs: **Netzwerk → Internes Netzwerk → Name: `intnet-gruppe4`**
+### Schritt 1: VirtualBox konfigurieren (Einstellungen in der VM)
+- **Angeschlossen an:** Dropdown umstellen auf **`Internes Netzwerk`** *(Wichtig: Nicht "Netzwerkbrücke" lassen!)*
+- **Name:** **`intnet-gruppe4`** eintragen
+- **Adapter-Typ:** Standard lassen (`Intel PRO/1000 MT Desktop (82540EM)`) - dieses Feld muss **nicht** geändert werden!
 
 #### 🌐 VirtualBox Netzwerkkonfiguration & Portweiterleitung (Windows-PC)
 
