@@ -51,25 +51,39 @@ check_root() {
 configure_network() {
     print_header "SCHRITT 1: Netzwerk konfigurieren"
     
-    ACTUAL_IF=$(ip -o link show | awk -F': ' '{print $2}' | grep -v lo | head -1)
-    echo -e "${YELLOW}Erkannte Netzwerkschnittstelle: $ACTUAL_IF${NC}"
+    INTERFACES=($(ip -o link show | awk -F': ' '{print $2}' | grep -v lo))
     
     if [ -d /etc/netplan ]; then
-        cat > /etc/netplan/01-netcfg.yaml <<EOF
+        if [ "${#INTERFACES[@]}" -ge 2 ]; then
+            NAT_IF="${INTERFACES[0]}"
+            INT_IF="${INTERFACES[1]}"
+            echo -e "${YELLOW}Erkannte Schnittstellen: NAT=$NAT_IF, Intranet=$INT_IF${NC}"
+            cat > /etc/netplan/01-netcfg.yaml <<EOF
 network:
   version: 2
   renderer: networkd
   ethernets:
-    ${ACTUAL_IF}:
+    ${NAT_IF}:
+      dhcp4: true
+    ${INT_IF}:
       addresses:
         - ${CLIENT_IP}/24
-      routes:
-        - to: default
-          via: ${GATEWAY}
-      nameservers:
-        addresses: [${SERVER_IP}, 8.8.8.8]
       dhcp4: false
 EOF
+        else
+            INT_IF="${INTERFACES[0]}"
+            echo -e "${YELLOW}Erkannte Netzwerkschnittstelle: $INT_IF${NC}"
+            cat > /etc/netplan/01-netcfg.yaml <<EOF
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ${INT_IF}:
+      addresses:
+        - ${CLIENT_IP}/24
+      dhcp4: false
+EOF
+        fi
         netplan apply
         
     elif [ -f /etc/network/interfaces ]; then
