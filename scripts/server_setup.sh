@@ -120,8 +120,10 @@ EOF
 update_system() {
     print_header "SCHRITT 2: System aktualisieren"
     
+    export DEBIAN_FRONTEND=noninteractive
+    export NEEDRESTART_MODE=a
     apt-get update -y
-    apt-get upgrade -y
+    apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
     print_step "System ist aktuell"
 }
 
