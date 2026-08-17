@@ -461,6 +461,36 @@ def create_team_guide():
         ['Ubuntu Desktop 22.04', 'https://ubuntu.com/download/desktop', 'Für CLIENT-VM'],
     ]
     story.append(make_info_table(iso_links, [5*cm, 8*cm, 3.5*cm]))
+    story.append(Spacer(1, 0.4*cm))
+
+    story.append(Paragraph("Netzwerk-Modi & Portweiterleitung (Wichtig für Windows-Nutzer):", styles['h3']))
+    story.append(Paragraph(
+        "Es gibt zwei Szenarien, wie auf die Server-VM zugegriffen werden kann:",
+        styles['body']
+    ))
+
+    port_info = [
+        ['Szenario', 'VirtualBox Netzwerk-Typ', 'Portweiterleitung nötig?', 'Zugriff über'],
+        ['1. Client-VM → Server-VM', 'Internes Netzwerk (intnet-gruppe3)', 'NEIN (alle Ports frei)', 'http://172.16.30.10\nssh admin@172.16.30.10'],
+        ['2. Windows-Host → Server-VM', 'NAT mit Portweiterleitung', 'JA (Port 2222 & 8080)', 'http://localhost:8080\nssh admin@localhost -p 2222'],
+        ['3. Windows-Host → Server-VM', 'Host-Only Adapter (Adapter 2)', 'NEIN (eigenes Netz)', 'http://172.16.30.10'],
+    ]
+    story.append(make_info_table(port_info, [4.2*cm, 4.5*cm, 3.5*cm, 4.3*cm]))
+    story.append(Spacer(1, 0.3*cm))
+
+    story.append(Paragraph("Anleitung: Portweiterleitung in VirtualBox einrichten (für Windows-PC):", styles['h4']))
+    pf_steps = [
+        "Server-VM in VirtualBox auswählen → Einstellungen → Netzwerk",
+        "Adapter 1: NAT auswählen (für Internet & Host-Zugriff)",
+        "Klick auf 'Erweitert' → Klick auf den Button 'Portweiterleitung'",
+        "Regel 1 hinzufügen: Name: SSH | Protokoll: TCP | Host-Port: 2222 | Gast-Port: 22",
+        "Regel 2 hinzufügen: Name: HTTP | Protokoll: TCP | Host-Port: 8080 | Gast-Port: 80",
+        "Auf dem Windows-PC im Browser öffnen: http://localhost:8080",
+        "Auf dem Windows-PC in PuTTY / CMD ausführen: ssh admin@localhost -p 2222",
+    ]
+    for i, s in enumerate(pf_steps, 1):
+        story.append(Paragraph(f"<b>{i}.</b> {s}", styles['bullet']))
+
     story.append(PageBreak())
 
     # ===================== KAPITEL 3: SERVER-VM =====================
