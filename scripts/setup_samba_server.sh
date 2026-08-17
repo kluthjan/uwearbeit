@@ -9,13 +9,16 @@
 set -e
 
 echo "=== [1/6] System-Aktualisierung & Paketinstallation ==="
-sudo apt update
-sudo apt install -y samba samba-common-bin cifs-utils ufw
+if command -v apt &>/dev/null; then
+    sudo apt update
+    sudo apt install -y samba samba-common-bin cifs-utils ufw
+elif command -v pacman &>/dev/null; then
+    sudo pacman -Sy --noconfirm samba cifs-utils ufw || true
+fi
 
 echo "=== [2/6] Hostname & Netzwerkprüfung ==="
-sudo hostnamectl set-hostname fileserver
+sudo hostnamectl set-hostname fileserver || true
 echo "Hostname gesetzt: $(hostname)"
-ip a | grep "172.16.30.10" || echo "[HINWEIS] Bitte stelle sicher, dass die IP 172.16.30.10/24 auf dem Netzwerkinterface aktiv ist."
 
 echo "=== [3/6] Erstellung der Linux-Gruppen & Benutzer ==="
 # Gruppen anlegen
@@ -29,7 +32,7 @@ create_user() {
     PRIMARY_GROUP=$3
     
     if ! id "$USERNAME" &>/dev/null; then
-        sudo useradd -m -g "$PRIMARY_GROUP" -s /usr/sbin/nologin "$USERNAME"
+        sudo useradd -m -g "$PRIMARY_GROUP" -s /usr/sbin/nologin "$USERNAME" 2>/dev/null || sudo useradd -m -g "$PRIMARY_GROUP" -s /bin/false "$USERNAME"
         echo "$USERNAME:$PASSWORD" | sudo chpasswd
         echo "Linux-Benutzer '$USERNAME' erstellt."
     else
@@ -57,42 +60,37 @@ sudo mkdir -p /srv/samba/mitarbeiter
 sudo mkdir -p /srv/samba/leitung
 
 # Rechte setzen (mit SGID-Bit 2 für Gruppenvererbung)
-# Freigabe 'public': Jeder angemeldete Benutzer (mitarbeiter/leitung) darf lesen & schreiben
 sudo chown -R root:mitarbeiter /srv/samba/public
 sudo chmod -R 2777 /srv/samba/public
 
-# Freigabe 'mitarbeiter': Nur Gruppe 'mitarbeiter' (anna, bernd, chef)
 sudo chown -R root:mitarbeiter /srv/samba/mitarbeiter
 sudo chmod -R 2770 /srv/samba/mitarbeiter
 
-# Freigabe 'leitung': Nur Gruppe 'leitung' (chef)
 sudo chown -R root:leitung /srv/samba/leitung
 sudo chmod -R 2770 /srv/samba/leitung
 
-echo "Dateirechte für /srv/samba erfogreich konfiguriert."
+echo "Dateirechte für /srv/samba erfolgreich konfiguriert."
 
 echo "=== [5/6] Samba Konfiguration kopieren & prüfen ==="
-if [ -f "../config/smb.conf" ]; then
-    sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak.$(date +%Y%m%d_%H%M%S)
-    sudo cp ../config/smb.conf /etc/samba/smb.conf
-    echo "Neue smb.conf erfolgreich eingespielt."
-elif [ -f "./config/smb.conf" ]; then
-    sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak.$(date +%Y%m%d_%H%M%S)
-    sudo cp ./config/smb.conf /etc/samba/smb.conf
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_FILE="$SCRIPT_DIR/../config/smb.conf"
+
+if [ -f "$CONFIG_FILE" ]; then
+    sudo mkdir -p /etc/samba
+    if [ -f /etc/samba/smb.conf ]; then
+        sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak.$(date +%Y%m%d_%H%M%S)
+    fi
+    sudo cp "$CONFIG_FILE" /etc/samba/smb.conf
     echo "Neue smb.conf erfolgreich eingespielt."
 fi
 
 # Konfiguration testen
 sudo testparm -s
 
-echo "=== [6/6] Dienste neustarten & Firewall anpassen ==="
-sudo systemctl restart smbd nmbd
-sudo systemctl enable smbd nmbd
-
-# UFW Firewall Ports freischalten (Falls UFW aktiv)
-if command -v ufw &> /dev/null; then
-    sudo ufw allow samba
-    echo "Firewall-Regel für Samba freigeschaltet."
+echo "=== [6/6] Dienste neustarten ==="
+if command -v systemctl &>/dev/null; then
+    sudo systemctl restart smbd nmbd 2>/dev/null || sudo systemctl restart smb nmb 2>/dev/null || true
+    sudo systemctl enable smbd nmbd 2>/dev/null || sudo systemctl enable smb nmb 2>/dev/null || true
 fi
 
 echo "=============================================================================="
