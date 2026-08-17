@@ -525,8 +525,22 @@ def create_team_guide():
         story.append(Paragraph(f"<b>{i}.</b> {s}", styles['bullet']))
     story.append(Spacer(1, 0.3*cm))
 
+    story.append(make_step_box("🚀", "SCHNELLE METHODE: Automatisches Setup-Skript (Empfohlen!)", styles))
+    story.append(Spacer(1, 0.15*cm))
+    story.append(Paragraph(
+        "Statt alle Befehle manuell abzutippen, kannst du das vorgefertigte Automatisierungsskript "
+        "direkt in der Server-VM ausführen (benötigt kurz Internet oder lokales Skript):",
+        styles['body']
+    ))
+    for line in make_code_block(
+        "# Server-VM vollautomatisch einrichten (IP 172.16.40.10, SSH, Apache, UFW):\n"
+        "curl -sSL https://raw.githubusercontent.com/kluthjan/uwearbeit/main/scripts/server_setup.sh | sudo bash",
+        styles):
+        story.append(line)
+    story.append(Spacer(1, 0.3*cm))
+
     # STEP BOX
-    story.append(make_step_box("A", "Nach dem Login: Netzwerk manuell konfigurieren", styles))
+    story.append(make_step_box("A", "MANUELLE METHODE: Netzwerk konfigurieren", styles))
     story.append(Spacer(1, 0.15*cm))
 
     story.append(Paragraph("Netzwerk-Interface herausfinden:", styles['h4']))
@@ -811,7 +825,21 @@ def create_team_guide():
     ))
     story.append(Spacer(1, 0.2*cm))
 
-    story.append(make_step_box("1", "Client-Netzwerk konfigurieren", styles))
+    story.append(make_step_box("🚀", "SCHNELLE METHODE: Automatisches Client-Setup (Empfohlen!)", styles))
+    story.append(Spacer(1, 0.15*cm))
+    story.append(Paragraph(
+        "Statt das Netzwerk manuell zu konfigurieren, kannst du das Client-Automatisierungsskript "
+        "direkt in der Client-VM ausführen:",
+        styles['body']
+    ))
+    for line in make_code_block(
+        "# Client-VM vollautomatisch einrichten (IP 172.16.40.100, Hosts-Eintrag, Wireshark):\n"
+        "curl -sSL https://raw.githubusercontent.com/kluthjan/uwearbeit/main/scripts/client_setup.sh | sudo bash",
+        styles):
+        story.append(line)
+    story.append(Spacer(1, 0.3*cm))
+
+    story.append(make_step_box("1", "MANUELLE METHODE: Client-Netzwerk konfigurieren", styles))
     story.append(Spacer(1, 0.15*cm))
     story.append(Paragraph(
         "Gleiches Vorgehen wie beim Server, aber mit Client-IP 172.16.40.100:",
