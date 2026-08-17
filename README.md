@@ -1,6 +1,6 @@
 # 🖥️ Gruppenarbeit 4 – Webserver mit SSH-Fernadministration
 
-> **Team Gruppe 3:** Jan · Marian · Mathias · Marco
+> **Team Gruppe 4:** Jan · Marian · Mathias · Marco
 
 ---
 
@@ -13,14 +13,14 @@
 
 ---
 
-## 🌐 Netzwerkplan – Gruppe 3
+## 🌐 Netzwerkplan – Gruppe 4
 
 | Gerät | IP-Adresse | Hostname |
 |-------|-----------|----------|
-| **Server** | `172.16.30.10` | `server.gruppe3.local` |
-| **Client** | `172.16.30.100` | `client.gruppe3.local` |
-| **Netzwerk** | `172.16.30.0/24` | — |
-| **Gateway** | `172.16.30.1` | — |
+| **Server** | `172.16.40.10` | `server.gruppe4.local` |
+| **Client** | `172.16.40.100` | `client.gruppe4.local` |
+| **Netzwerk** | `172.16.40.0/24` | — |
+| **Gateway** | `172.16.40.1` | — |
 
 ---
 
@@ -78,13 +78,13 @@ Das Script richtet automatisch ein:
 ## 🔧 Manuelle Einrichtung
 
 ### Schritt 1: VirtualBox konfigurieren
-- Beide VMs: **Netzwerk → Internes Netzwerk → Name: `intnet-gruppe3`**
+- Beide VMs: **Netzwerk → Internes Netzwerk → Name: `intnet-gruppe4`**
 
 #### 🌐 VirtualBox Netzwerkkonfiguration & Portweiterleitung (Windows-PC)
 
 1. **Kommunikation VM ⟷ VM (Client-VM ⟷ Server-VM):**
-   - **Netzwerktyp:** Internes Netzwerk (`intnet-gruppe3`)
-   - **Portweiterleitung nötig?** ❌ **NEIN!** Im internen Netzwerk kommunizieren beide VMs direkt im Subnetz `172.16.30.0/24`. Alle Ports (22, 80) sind frei erreichbar.
+   - **Netzwerktyp:** Internes Netzwerk (`intnet-gruppe4`)
+   - **Portweiterleitung nötig?** ❌ **NEIN!** Im internen Netzwerk kommunizieren beide VMs direkt im Subnetz `172.16.40.0/24`. Alle Ports (22, 80) sind frei erreichbar.
 
 2. **Direkter Zugriff vom Windows-Host-PC auf die Server-VM (Optional):**
    - Falls du direkt aus dem Windows-Browser oder Windows PowerShell/PuTTY auf die Server-VM zugreifen möchtest:
@@ -97,7 +97,7 @@ Das Script richtet automatisch ein:
 
 ### Schritt 2: Server einrichten
 ```bash
-# Netzwerk konfigurieren (IP: 172.16.30.10)
+# Netzwerk konfigurieren (IP: 172.16.40.10)
 sudo nano /etc/netplan/00-installer-config.yaml
 sudo netplan apply
 
@@ -116,17 +116,17 @@ sudo ufw enable
 
 ### Schritt 3: Client einrichten
 ```bash
-# IP: 172.16.30.100
+# IP: 172.16.40.100
 sudo netplan apply
 
 # Server in /etc/hosts
-echo "172.16.30.10 server.gruppe3.local" | sudo tee -a /etc/hosts
+echo "172.16.40.10 server.gruppe4.local" | sudo tee -a /etc/hosts
 
 # SSH-Verbindung zum Server
-ssh admin@172.16.30.10
+ssh admin@172.16.40.10
 
 # Browser: Webseite aufrufen
-# http://172.16.30.10
+# http://172.16.40.10
 ```
 
 ---
@@ -135,13 +135,13 @@ ssh admin@172.16.30.10
 
 ```bash
 # Ping Client → Server
-ping -c 4 172.16.30.10
+ping -c 4 172.16.40.10
 
 # Webserver testen
-curl http://172.16.30.10
+curl http://172.16.40.10
 
 # SSH testen
-ssh admin@172.16.30.10
+ssh admin@172.16.40.10
 
 # Firewall-Status
 sudo ufw status verbose
