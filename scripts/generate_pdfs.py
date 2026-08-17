@@ -436,8 +436,11 @@ def create_team_guide():
 
     story.append(Spacer(1, 0.3*cm))
     warn_box = Table([[Paragraph(
-        "⚠️ WICHTIG: Beide VMs müssen den exakt gleichen Netzwerknamen 'intnet-gruppe4' haben, "
-        "sonst können sie nicht miteinander kommunizieren!",
+        "⚠️ WICHTIGER HINWEIS ZUM FOTO / SETTINGS-DIALOG:<br/>"
+        "• <b>FALSCH:</b> 'Angeschlossen an: Netzwerkbrücke' (wie im Screenshot)<br/>"
+        "• <b>RICHTIG:</b> Dropdown 'Angeschlossen an' anklicken ➔ <b>'Internes Netzwerk'</b> wählen!<br/>"
+        "• <b>NAME:</b> Im Feld 'Name' den Wert <b>intnet-gruppe4</b> eintragen.<br/>"
+        "• <b>ADAPTER-TYP:</b> Das Feld 'Adapter-Typ' (z.B. Intel PRO/1000 MT) kann einfach auf Standard bleiben!",
         styles['warning']
     )]], colWidths=[W])
     warn_box.setStyle(TableStyle([
