@@ -2,8 +2,8 @@
 # =============================================================================
 # Gruppenarbeit 4 - CLIENT-Setup Script
 # Webserver mit SSH-Fernadministration
-# Gruppe 3 - Jan, Marian, Mathias, Marco
-# Netzwerk: 172.16.30.0/24  |  Client: 172.16.30.100
+# Gruppe 4 - Jan, Marian, Mathias, Marco
+# Netzwerk: 172.16.40.0/24  |  Client: 172.16.40.100
 # =============================================================================
 
 set -e
@@ -15,10 +15,10 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 NC='\033[0m'
 
-CLIENT_IP="172.16.30.100"
-SERVER_IP="172.16.30.10"
-SUBNET="172.16.30.0/24"
-GATEWAY="172.16.30.1"
+CLIENT_IP="172.16.40.100"
+SERVER_IP="172.16.40.10"
+SUBNET="172.16.40.0/24"
+GATEWAY="172.16.40.1"
 
 print_header() {
     echo -e "\n${BLUE}============================================================${NC}"
@@ -89,10 +89,10 @@ EOF
     fi
     
     # Hosts-Datei aktualisieren
-    sed -i '/gruppe3.local/d' /etc/hosts
-    echo "${SERVER_IP}  server.gruppe3.local intranet.gruppe3.local" >> /etc/hosts
+    sed -i '/gruppe4.local/d' /etc/hosts
+    echo "${SERVER_IP}  server.gruppe4.local intranet.gruppe4.local" >> /etc/hosts
     
-    hostnamectl set-hostname client.gruppe3.local
+    hostnamectl set-hostname client.gruppe4.local
     
     print_step "Client-IP gesetzt: ${CLIENT_IP}"
     print_step "Server in /etc/hosts eingetragen"
@@ -175,7 +175,7 @@ generate_ssh_key() {
     
     if [ ! -f "${SSH_DIR}/id_rsa" ]; then
         sudo -u ${SUDO_USER:-$USER} ssh-keygen -t rsa -b 4096 \
-            -C "gruppe3-client@${CLIENT_IP}" \
+            -C "gruppe4-client@${CLIENT_IP}" \
             -f "${SSH_DIR}/id_rsa" \
             -N ""
         print_step "SSH-Schlüsselpaar generiert"
@@ -193,14 +193,14 @@ print_summary() {
     print_header "✅ CLIENT-SETUP ABGESCHLOSSEN"
     
     echo -e "${GREEN}Client-Konfiguration:${NC}"
-    echo -e "  📍 Hostname:    client.gruppe3.local"
+    echo -e "  📍 Hostname:    client.gruppe4.local"
     echo -e "  🌐 IP-Adresse:  ${CLIENT_IP}"
     echo -e "  🔌 Netzwerk:    ${SUBNET}"
     echo -e ""
     echo -e "${GREEN}Verbindung zum Server:${NC}"
     echo -e "  💻 SSH:         ssh admin@${SERVER_IP}"
     echo -e "  🌐 Webseite:    http://${SERVER_IP}"
-    echo -e "  🌐 Webseite:    http://server.gruppe3.local"
+    echo -e "  🌐 Webseite:    http://server.gruppe4.local"
     echo -e ""
     echo -e "${GREEN}Netzwerkanalyse:${NC}"
     echo -e "  📡 Wireshark:   wireshark (grafisch)"
@@ -210,7 +210,7 @@ print_summary() {
 
 main() {
     print_header "Gruppenarbeit 4 - Client-Setup"
-    echo -e "Team: Jan, Marian, Mathias, Marco (Gruppe 3)"
+    echo -e "Team: Jan, Marian, Mathias, Marco (Gruppe 4)"
     echo -e "Netzwerk: ${SUBNET} | Client: ${CLIENT_IP}"
     
     check_root
