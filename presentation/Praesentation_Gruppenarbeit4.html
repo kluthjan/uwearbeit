@@ -402,7 +402,7 @@
     <!-- ============ SLIDE 1: TITEL ============ -->
     <div class="slide slide-title active" id="slide-1">
         <h1>Webserver mit<br>SSH-Fernadministration</h1>
-        <p class="subtitle">Gruppenarbeit 4 | IT-Systeme | Gruppe 3</p>
+        <p class="subtitle">Gruppenarbeit 4 | IT-Systeme | Gruppe 4</p>
 
         <div class="cards cards-3" style="max-width:700px; margin: 30px auto;">
             <div class="card" style="text-align:center;">
@@ -429,14 +429,14 @@
             <span class="badge">👤 Marco</span>
         </div>
 
-        <div class="slide-footer">Müller &amp; Partner GmbH | Gruppe 3</div>
+        <div class="slide-footer">Müller &amp; Partner GmbH | Gruppe 4</div>
     </div>
 
     <!-- ============ SLIDE 2: AUFGABE ============ -->
     <div class="slide slide-content" id="slide-2">
         <div class="slide-header-bar">
             <span class="brand">Müller &amp; Partner GmbH</span>
-            <span class="topic">Gruppenarbeit 4 | Gruppe 3</span>
+            <span class="topic">Gruppenarbeit 4 | Gruppe 4</span>
         </div>
         <h2>Was war unsere Aufgabe?</h2>
         <div class="cards cards-2">
@@ -470,28 +470,28 @@
     <div class="slide slide-content" id="slide-3">
         <div class="slide-header-bar">
             <span class="brand">Müller &amp; Partner GmbH</span>
-            <span class="topic">Gruppenarbeit 4 | Gruppe 3</span>
+            <span class="topic">Gruppenarbeit 4 | Gruppe 4</span>
         </div>
-        <h2>Netzwerkplan – Gruppe 3</h2>
+        <h2>Netzwerkplan – Gruppe 4</h2>
 
         <div class="network-diagram">
             <div class="node">
                 <div class="node-box">
                     <div class="node-title">🖥️ Server-VM</div>
-                    <div class="node-ip">172.16.30.10</div>
-                    <div class="node-services">server.gruppe3.local<br>Apache2 | OpenSSH | UFW</div>
+                    <div class="node-ip">172.16.40.10</div>
+                    <div class="node-services">server.gruppe4.local<br>Apache2 | OpenSSH | UFW</div>
                 </div>
                 <div class="connection-label">Ubuntu Server 22.04</div>
             </div>
             <div style="text-align:center;">
                 <div class="arrow" style="display:block;">⟷</div>
-                <div style="color:#888; font-size:0.8em; margin-top:5px;">Internes Netz<br>intnet-gruppe3<br>VirtualBox</div>
+                <div style="color:#888; font-size:0.8em; margin-top:5px;">Internes Netz<br>intnet-gruppe4<br>VirtualBox</div>
             </div>
             <div class="node">
                 <div class="node-box">
                     <div class="node-title">💻 Client-VM</div>
-                    <div class="node-ip">172.16.30.100</div>
-                    <div class="node-services">client.gruppe3.local<br>Browser | SSH-Client | Wireshark</div>
+                    <div class="node-ip">172.16.40.100</div>
+                    <div class="node-services">client.gruppe4.local<br>Browser | SSH-Client | Wireshark</div>
                 </div>
                 <div class="connection-label">Ubuntu Desktop 22.04</div>
             </div>
@@ -499,9 +499,9 @@
 
         <table class="net-table" style="margin-top:10px;">
             <tr><th>Gerät/Dienst</th><th>IP-Adresse</th><th>Subnetz</th><th>Hostname</th></tr>
-            <tr><td>Server</td><td><code>172.16.30.10</code></td><td>255.255.255.0 /24</td><td>server.gruppe3.local</td></tr>
-            <tr><td>Client</td><td><code>172.16.30.100</code></td><td>255.255.255.0 /24</td><td>client.gruppe3.local</td></tr>
-            <tr><td>Netzwerk</td><td colspan="3"><code>172.16.30.0/24</code> | Gateway: 172.16.30.1</td></tr>
+            <tr><td>Server</td><td><code>172.16.40.10</code></td><td>255.255.255.0 /24</td><td>server.gruppe4.local</td></tr>
+            <tr><td>Client</td><td><code>172.16.40.100</code></td><td>255.255.255.0 /24</td><td>client.gruppe4.local</td></tr>
+            <tr><td>Netzwerk</td><td colspan="3"><code>172.16.40.0/24</code> | Gateway: 172.16.40.1</td></tr>
         </table>
         <div class="slide-footer">Seite 3 | Netzwerkplan</div>
     </div>
@@ -510,7 +510,7 @@
     <div class="slide slide-content" id="slide-4">
         <div class="slide-header-bar">
             <span class="brand">Müller &amp; Partner GmbH</span>
-            <span class="topic">Gruppenarbeit 4 | Gruppe 3</span>
+            <span class="topic">Gruppenarbeit 4 | Gruppe 4</span>
         </div>
         <h2>Eingerichtete Dienste</h2>
         <div class="cards cards-3">
@@ -556,7 +556,7 @@
     <div class="slide slide-content" id="slide-5">
         <div class="slide-header-bar">
             <span class="brand">Müller &amp; Partner GmbH</span>
-            <span class="topic">Gruppenarbeit 4 | Gruppe 3</span>
+            <span class="topic">Gruppenarbeit 4 | Gruppe 4</span>
         </div>
         <h2>Wie wurde es umgesetzt?</h2>
         <div class="cards cards-2">
@@ -564,7 +564,7 @@
                 <h3>Server-Konfiguration</h3>
                 <ul class="steps">
                     <li><span class="step-num">1</span><span>Ubuntu Server 22.04 in VirtualBox installiert</span></li>
-                    <li><span class="step-num">2</span><span>Statische IP 172.16.30.10 via Netplan konfiguriert</span></li>
+                    <li><span class="step-num">2</span><span>Statische IP 172.16.40.10 via Netplan konfiguriert</span></li>
                     <li><span class="step-num">3</span><span>OpenSSH installiert, PermitRootLogin=no, Banner erstellt</span></li>
                     <li><span class="step-num">4</span><span>Apache2 installiert, Intranet-Webseite erstellt</span></li>
                     <li><span class="step-num">5</span><span>UFW Firewall aktiviert: nur Port 22 + 80</span></li>
@@ -574,7 +574,7 @@
                 <h3>Client-Konfiguration</h3>
                 <ul class="steps">
                     <li><span class="step-num">1</span><span>Ubuntu Desktop in VirtualBox eingerichtet</span></li>
-                    <li><span class="step-num">2</span><span>Statische IP 172.16.30.100 konfiguriert</span></li>
+                    <li><span class="step-num">2</span><span>Statische IP 172.16.40.100 konfiguriert</span></li>
                     <li><span class="step-num">3</span><span>Server in /etc/hosts eingetragen</span></li>
                     <li><span class="step-num">4</span><span>SSH-Verbindung zum Server hergestellt</span></li>
                     <li><span class="step-num">5</span><span>Webseite im Browser geöffnet</span></li>
@@ -583,9 +583,9 @@
         </div>
         <div class="code-block" style="margin-top:20px;">
             <span class="comment"># SSH-Verbindung vom Client zum Server:</span><br>
-            <span class="cmd">ssh admin@172.16.30.10</span><br>
+            <span class="cmd">ssh admin@172.16.40.10</span><br>
             <span class="comment"># Webseite im Browser:</span><br>
-            <span class="string">http://172.16.30.10</span> &nbsp;|&nbsp; <span class="string">http://server.gruppe3.local</span>
+            <span class="string">http://172.16.40.10</span> &nbsp;|&nbsp; <span class="string">http://server.gruppe4.local</span>
         </div>
         <div class="slide-footer">Seite 5 | Umsetzung</div>
     </div>
@@ -594,12 +594,12 @@
     <div class="slide slide-content" id="slide-6">
         <div class="slide-header-bar">
             <span class="brand">Müller &amp; Partner GmbH</span>
-            <span class="topic">Gruppenarbeit 4 | Gruppe 3</span>
+            <span class="topic">Gruppenarbeit 4 | Gruppe 4</span>
         </div>
         <h2>Durchgeführte Tests</h2>
         <ul class="checklist">
-            <li>Server-IP 172.16.30.10 konfiguriert</li>
-            <li>Client-IP 172.16.30.100 konfiguriert</li>
+            <li>Server-IP 172.16.40.10 konfiguriert</li>
+            <li>Client-IP 172.16.40.100 konfiguriert</li>
             <li>Ping Client → Server erfolgreich</li>
             <li>Ping Server → Client erfolgreich</li>
             <li>SSH Login mit Banner</li>
@@ -614,9 +614,9 @@
 
         <div class="code-block" style="margin-top:20px; font-size:0.85em;">
             <span class="comment"># Testbefehle (auf Client):</span><br>
-            <span class="cmd">ping -c 4 172.16.30.10</span> &nbsp;&nbsp;&nbsp;<span class="comment"># Netzwerk OK?</span><br>
-            <span class="cmd">curl http://172.16.30.10</span> &nbsp;&nbsp;<span class="comment"># Webserver OK?</span><br>
-            <span class="cmd">ssh admin@172.16.30.10</span> &nbsp;&nbsp;&nbsp;<span class="comment"># SSH OK?</span><br>
+            <span class="cmd">ping -c 4 172.16.40.10</span> &nbsp;&nbsp;&nbsp;<span class="comment"># Netzwerk OK?</span><br>
+            <span class="cmd">curl http://172.16.40.10</span> &nbsp;&nbsp;<span class="comment"># Webserver OK?</span><br>
+            <span class="cmd">ssh admin@172.16.40.10</span> &nbsp;&nbsp;&nbsp;<span class="comment"># SSH OK?</span><br>
             <span class="cmd">sudo ufw status verbose</span> &nbsp;&nbsp;&nbsp;<span class="comment"># Firewall OK?</span>
         </div>
         <div class="slide-footer">Seite 6 | Tests</div>
@@ -626,7 +626,7 @@
     <div class="slide slide-content" id="slide-7">
         <div class="slide-header-bar">
             <span class="brand">Müller &amp; Partner GmbH</span>
-            <span class="topic">Gruppenarbeit 4 | Gruppe 3</span>
+            <span class="topic">Gruppenarbeit 4 | Gruppe 4</span>
         </div>
         <h2>Netzwerkanalyse mit Wireshark</h2>
         <div class="cards cards-2">
@@ -668,14 +668,14 @@
     <div class="slide slide-content" id="slide-8">
         <div class="slide-header-bar">
             <span class="brand">Müller &amp; Partner GmbH</span>
-            <span class="topic">Gruppenarbeit 4 | Gruppe 3</span>
+            <span class="topic">Gruppenarbeit 4 | Gruppe 4</span>
         </div>
         <h2>Probleme &amp; Lösungen</h2>
         <div class="cards cards-2">
             <div class="card">
                 <h3>❌ Netzwerk-Problem</h3>
                 <p><strong>Problem:</strong> VMs können sich nicht pingen.</p>
-                <p style="margin-top:8px;"><strong>Lösung:</strong> VirtualBox-Netzwerkname bei BEIDEN VMs muss identisch sein: <code style="color:#a6e3a1;">intnet-gruppe3</code></p>
+                <p style="margin-top:8px;"><strong>Lösung:</strong> VirtualBox-Netzwerkname bei BEIDEN VMs muss identisch sein: <code style="color:#a6e3a1;">intnet-gruppe4</code></p>
             </div>
             <div class="card">
                 <h3>❌ YAML-Fehler (Netplan)</h3>
@@ -700,7 +700,7 @@
     <div class="slide slide-content" id="slide-9">
         <div class="slide-header-bar">
             <span class="brand">Müller &amp; Partner GmbH</span>
-            <span class="topic">Gruppenarbeit 4 | Gruppe 3</span>
+            <span class="topic">Gruppenarbeit 4 | Gruppe 4</span>
         </div>
         <h2>Was würden wir in der Praxis zusätzlich beachten?</h2>
         <div class="cards cards-3">
@@ -750,17 +750,17 @@
             <div class="card" style="text-align:center;">
                 <p style="font-size:3em;">🎯</p>
                 <h3>Netzwerkplan</h3>
-                <p>172.16.30.0/24 | Server: .10 | Client: .100</p>
+                <p>172.16.40.0/24 | Server: .10 | Client: .100</p>
             </div>
         </div>
         <div class="highlight-box" style="max-width:700px; width:100%;">
             <p class="big">Müller &amp; Partner GmbH – Intranet ist online!</p>
             <p style="margin-top:10px; color:#aaa; font-size:0.95em;">
-                🌐 http://172.16.30.10 &nbsp;|&nbsp; 💻 ssh admin@172.16.30.10
+                🌐 http://172.16.40.10 &nbsp;|&nbsp; 💻 ssh admin@172.16.40.10
             </p>
         </div>
         <div class="team-badge" style="margin-top:25px;">
-            <span class="badge">👥 Gruppe 3</span>
+            <span class="badge">👥 Gruppe 4</span>
             <span class="badge">👤 Jan</span>
             <span class="badge">👤 Marian</span>
             <span class="badge">👤 Mathias</span>
