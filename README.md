@@ -80,6 +80,21 @@ Das Script richtet automatisch ein:
 ### Schritt 1: VirtualBox konfigurieren
 - Beide VMs: **Netzwerk → Internes Netzwerk → Name: `intnet-gruppe3`**
 
+#### 🌐 VirtualBox Netzwerkkonfiguration & Portweiterleitung (Windows-PC)
+
+1. **Kommunikation VM ⟷ VM (Client-VM ⟷ Server-VM):**
+   - **Netzwerktyp:** Internes Netzwerk (`intnet-gruppe3`)
+   - **Portweiterleitung nötig?** ❌ **NEIN!** Im internen Netzwerk kommunizieren beide VMs direkt im Subnetz `172.16.30.0/24`. Alle Ports (22, 80) sind frei erreichbar.
+
+2. **Direkter Zugriff vom Windows-Host-PC auf die Server-VM (Optional):**
+   - Falls du direkt aus dem Windows-Browser oder Windows PowerShell/PuTTY auf die Server-VM zugreifen möchtest:
+   - Server-VM → **Einstellungen → Netzwerk → Adapter 1 (NAT) → Erweitert → Portweiterleitung**:
+     - Regel 1 (SSH): Host-Port `2222` ➔ Gast-Port `22`
+     - Regel 2 (HTTP): Host-Port `8080` ➔ Gast-Port `80`
+   - **Zugriff auf Windows:**
+     - 🌍 Browser: `http://localhost:8080`
+     - 💻 PowerShell / PuTTY: `ssh admin@localhost -p 2222` (Passwort: `Admin1234!`)
+
 ### Schritt 2: Server einrichten
 ```bash
 # Netzwerk konfigurieren (IP: 172.16.30.10)
