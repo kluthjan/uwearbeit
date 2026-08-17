@@ -188,7 +188,30 @@ sudo chmod -R 775 /var/www/html
 
 ---
 
-## 6. Überprüfung der Dienste
+## 6. Webseite hochladen (SFTP / SCP)
+
+Um eine selbst erstellte Webseite auf den Server hochzuladen, empfiehlt sich die Nutzung von SFTP (Secure File Transfer Protocol). Da der SSH-Server bereits konfiguriert ist, funktioniert SFTP out-of-the-box.
+
+### Option 1: Hochladen mit grafischen Programmen (z. B. FileZilla / WinSCP)
+1. **Host:** IP des Servers (z. B. `172.16.40.10`)
+2. **Benutzername:** `admin` (oder der zuvor erstellte Benutzer)
+3. **Passwort:** *Das festgelegte Passwort*
+4. **Port:** `22` (oder Ihr spezifischer SSH-Port)
+
+Nach der Verbindung navigieren Sie auf der Server-Seite in das Verzeichnis `/var/www/html` und ziehen Ihre HTML/CSS/JS-Dateien (z. B. eine fertige `index.html`) per Drag & Drop in das Verzeichnis.
+
+### Option 2: Hochladen über die Kommandozeile (SCP)
+Von einem Client-Rechner (z. B. der Client-VM oder Ihrem Host-PC) aus können Sie Dateien auch per Befehlszeile kopieren:
+
+```bash
+# Kopiert eine lokale Datei index.html auf den Server in das Web-Verzeichnis
+scp /pfad/zur/lokalen/index.html admin@172.16.40.10:/var/www/html/
+```
+*Hinweis: Der Benutzer `admin` benötigt Schreibrechte auf `/var/www/html`, wie in Schritt 5 konfiguriert.*
+
+---
+
+## 7. Überprüfung der Dienste
 
 Nach Abschluss der Installation sollten Sie den Status der Dienste überprüfen:
 
