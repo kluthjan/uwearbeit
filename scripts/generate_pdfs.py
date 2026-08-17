@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 PDF-Generator für Gruppenarbeit 4
-Gruppe 3: Jan, Marian, Mathias, Marco
+Gruppe 4: Jan, Marian, Mathias, Marco
 Webserver mit SSH-Fernadministration
 """
 
@@ -185,7 +185,7 @@ def make_step_box(number, title, styles):
     return t
 
 
-def page_header_footer(canvas_obj, doc, title="", team="Gruppe 3 | Jan, Marian, Mathias, Marco"):
+def page_header_footer(canvas_obj, doc, title="", team="Gruppe 4 | Jan, Marian, Mathias, Marco"):
     """Draw header and footer on every page."""
     w, h = A4
     canvas_obj.saveState()
@@ -205,7 +205,7 @@ def page_header_footer(canvas_obj, doc, title="", team="Gruppe 3 | Jan, Marian, 
     canvas_obj.setFillColor(colors.white)
     canvas_obj.setFont('Helvetica', 8)
     canvas_obj.drawString(1.5*cm, 10, team)
-    canvas_obj.drawCentredString(w/2, 10, "Webserver mit SSH-Fernadministration | 172.16.30.0/24")
+    canvas_obj.drawCentredString(w/2, 10, "Webserver mit SSH-Fernadministration | 172.16.40.0/24")
     canvas_obj.drawRightString(w - 1.5*cm, 10, f"Seite {doc.page}")
 
     # Accent Line
@@ -256,7 +256,7 @@ def create_team_guide():
 
     # Team Info Box
     team_info = [
-        ['👥 Team Gruppe 3', ''],
+        ['👥 Team Gruppe 4', ''],
         ['Jan', 'Teamleiter'],
         ['Marian', 'Teammitglied'],
         ['Mathias', 'Teammitglied'],
@@ -281,12 +281,12 @@ def create_team_guide():
 
     # Network Info
     net_info = [
-        ['🌐 Netzwerk', '172.16.30.0/24'],
-        ['🖥️ Server IP', '172.16.30.10'],
-        ['💻 Client IP', '172.16.30.100'],
+        ['🌐 Netzwerk', '172.16.40.0/24'],
+        ['🖥️ Server IP', '172.16.40.10'],
+        ['💻 Client IP', '172.16.40.100'],
         ['🔒 SSH Port', '22'],
         ['🌍 HTTP Port', '80'],
-        ['🌐 Hostname', 'server.gruppe3.local'],
+        ['🌐 Hostname', 'server.gruppe4.local'],
     ]
     ni = Table(net_info, colWidths=[8*cm, 7*cm])
     ni.setStyle(TableStyle([
@@ -379,14 +379,14 @@ def create_team_guide():
     story.append(make_info_table(services, [6*cm, 7*cm, 3*cm]))
     story.append(Spacer(1, 0.4*cm))
 
-    story.append(Paragraph("Netzwerkplan – Gruppe 3", styles['h3']))
+    story.append(Paragraph("Netzwerkplan – Gruppe 4", styles['h3']))
     net_plan = [
         ['Gerät/Dienst', 'IP-Adresse', 'Funktion'],
-        ['Netzwerk', '172.16.30.0/24', 'Internes VM-Netzwerk'],
-        ['Server (Host)', '172.16.30.10', 'SSH + Apache Webserver'],
-        ['Client', '172.16.30.100', 'Browser + SSH-Client'],
+        ['Netzwerk', '172.16.40.0/24', 'Internes VM-Netzwerk'],
+        ['Server (Host)', '172.16.40.10', 'SSH + Apache Webserver'],
+        ['Client', '172.16.40.100', 'Browser + SSH-Client'],
         ['Subnetzmaske', '255.255.255.0 (/24)', '—'],
-        ['Standard-Gateway', '172.16.30.1', 'Virtuell (VirtualBox)'],
+        ['Standard-Gateway', '172.16.40.1', 'Virtuell (VirtualBox)'],
     ]
     story.append(make_info_table(net_plan, [5*cm, 5.5*cm, 5*cm]))
     story.append(Spacer(1, 0.4*cm))
@@ -394,8 +394,8 @@ def create_team_guide():
     story.append(Paragraph("DNS-Einträge:", styles['h4']))
     dns = [
         ['Hostname', 'Typ', 'IP-Adresse'],
-        ['server.gruppe3.local', 'A', '172.16.30.10'],
-        ['intranet.gruppe3.local', 'A', '172.16.30.10'],
+        ['server.gruppe4.local', 'A', '172.16.40.10'],
+        ['intranet.gruppe4.local', 'A', '172.16.40.10'],
     ]
     story.append(make_info_table(dns, [7*cm, 3*cm, 5.5*cm]))
     story.append(PageBreak())
@@ -427,7 +427,7 @@ def create_team_guide():
         "Klick auf 'Netzwerk' (links)",
         "Adapter 1: Aktiviert ✓",
         "Angeschlossen an: 'Internes Netzwerk' wählen",
-        "Name: intnet-gruppe3 eingeben",
+        "Name: intnet-gruppe4 eingeben",
         "OK klicken",
         "Das Gleiche für BEIDE VMs (Server UND Client)!",
     ]
@@ -436,7 +436,7 @@ def create_team_guide():
 
     story.append(Spacer(1, 0.3*cm))
     warn_box = Table([[Paragraph(
-        "⚠️ WICHTIG: Beide VMs müssen den exakt gleichen Netzwerknamen 'intnet-gruppe3' haben, "
+        "⚠️ WICHTIG: Beide VMs müssen den exakt gleichen Netzwerknamen 'intnet-gruppe4' haben, "
         "sonst können sie nicht miteinander kommunizieren!",
         styles['warning']
     )]], colWidths=[W])
@@ -471,9 +471,9 @@ def create_team_guide():
 
     port_info = [
         ['Szenario', 'VirtualBox Netzwerk-Typ', 'Portweiterleitung nötig?', 'Zugriff über'],
-        ['1. Client-VM → Server-VM', 'Internes Netzwerk (intnet-gruppe3)', 'NEIN (alle Ports frei)', 'http://172.16.30.10\nssh admin@172.16.30.10'],
+        ['1. Client-VM → Server-VM', 'Internes Netzwerk (intnet-gruppe4)', 'NEIN (alle Ports frei)', 'http://172.16.40.10\nssh admin@172.16.40.10'],
         ['2. Windows-Host → Server-VM', 'NAT mit Portweiterleitung', 'JA (Port 2222 & 8080)', 'http://localhost:8080\nssh admin@localhost -p 2222'],
-        ['3. Windows-Host → Server-VM', 'Host-Only Adapter (Adapter 2)', 'NEIN (eigenes Netz)', 'http://172.16.30.10'],
+        ['3. Windows-Host → Server-VM', 'Host-Only Adapter (Adapter 2)', 'NEIN (eigenes Netz)', 'http://172.16.40.10'],
     ]
     story.append(make_info_table(port_info, [4.2*cm, 4.5*cm, 3.5*cm, 4.3*cm]))
     story.append(Spacer(1, 0.3*cm))
@@ -501,7 +501,7 @@ def create_team_guide():
     story.append(Paragraph("Neue VM in VirtualBox erstellen:", styles['h3']))
     vm_steps = [
         "VirtualBox öffnen → 'Neu' klicken",
-        "Name: server-gruppe3 | Typ: Linux | Version: Ubuntu (64-bit)",
+        "Name: server-gruppe4 | Typ: Linux | Version: Ubuntu (64-bit)",
         "RAM: mindestens 2048 MB (2 GB) empfohlen",
         "Festplatte: Neue virtuelle Festplatte erstellen (20 GB)",
         "ISO einlegen: Einstellungen → Massenspeicher → CD-Symbol → Ubuntu Server ISO auswählen",
@@ -516,7 +516,7 @@ def create_team_guide():
         "Sprache: English (empfohlen für Server)",
         "Tastaturlayout: German",
         "Netzwerk: Erstmal überspringen (konfigurieren wir manuell)",
-        "Benutzername: admin | Computername: server-gruppe3",
+        "Benutzername: admin | Computername: server-gruppe4",
         "Passwort: Admin1234! (oder eigenes sicheres Passwort)",
         "SSH installieren: ✓ OpenSSH server installieren (Haken setzen!)",
         "Installation abwarten → Neustarten",
@@ -549,8 +549,8 @@ def create_team_guide():
     for line in make_code_block(
         "network:\n  version: 2\n  renderer: networkd\n  ethernets:\n"
         "    enp0s3:          # <-- Deinen Interface-Namen eintragen!\n"
-        "      addresses:\n        - 172.16.30.10/24\n"
-        "      routes:\n        - to: default\n          via: 172.16.30.1\n"
+        "      addresses:\n        - 172.16.40.10/24\n"
+        "      routes:\n        - to: default\n          via: 172.16.40.1\n"
         "      nameservers:\n        addresses: [8.8.8.8]\n      dhcp4: false",
         styles):
         story.append(line)
@@ -566,8 +566,8 @@ def create_team_guide():
     story.append(make_step_box("B", "Hostname setzen", styles))
     story.append(Spacer(1, 0.15*cm))
     for line in make_code_block(
-        "sudo hostnamectl set-hostname server.gruppe3.local\n"
-        "echo '172.16.30.10  server.gruppe3.local server' | sudo tee -a /etc/hosts",
+        "sudo hostnamectl set-hostname server.gruppe4.local\n"
+        "echo '172.16.40.10  server.gruppe4.local server' | sudo tee -a /etc/hosts",
         styles):
         story.append(line)
     story.append(Spacer(1, 0.3*cm))
@@ -608,7 +608,7 @@ def create_team_guide():
         ['Port', '22', 'Standard SSH-Port'],
         ['PermitRootLogin', 'no', 'Root-Login verbieten (Sicherheit!)'],
         ['PasswordAuthentication', 'yes', 'Passwort-Login erlauben'],
-        ['AllowUsers', '*@172.16.30.*', 'Nur internes Netzwerk'],
+        ['AllowUsers', '*@172.16.40.*', 'Nur internes Netzwerk'],
     ]
     story.append(make_info_table(ssh_config, [4.5*cm, 4*cm, 7*cm]))
     story.append(Spacer(1, 0.3*cm))
@@ -624,7 +624,7 @@ def create_team_guide():
     for line in make_code_block(
         "====================================================\n"
         " Müller & Partner GmbH - Internes Serversystem\n"
-        " Server: server.gruppe3.local (172.16.30.10)\n"
+        " Server: server.gruppe4.local (172.16.40.10)\n"
         " Nur autorisierter Zugriff!\n"
         "====================================================",
         styles):
@@ -650,8 +650,8 @@ def create_team_guide():
     story.append(make_step_box("5", "SSH-Verbindung testen (vom Client aus)", styles))
     story.append(Spacer(1, 0.15*cm))
     for line in make_code_block(
-        "# Auf dem Client ausführen:\nssh admin@172.16.30.10\n"
-        "# oder mit Hostname:\nssh admin@server.gruppe3.local",
+        "# Auf dem Client ausführen:\nssh admin@172.16.40.10\n"
+        "# oder mit Hostname:\nssh admin@server.gruppe4.local",
         styles):
         story.append(line)
     story.append(Spacer(1, 0.2*cm))
@@ -698,8 +698,8 @@ def create_team_guide():
         "    <title>Müller & Partner - Intranet</title>\n</head>\n"
         "<body>\n"
         "    <h1>Willkommen im Intranet</h1>\n"
-        "    <p>Müller &amp; Partner GmbH - Gruppe 3</p>\n"
-        "    <p>Server: server.gruppe3.local | IP: 172.16.30.10</p>\n"
+        "    <p>Müller &amp; Partner GmbH - Gruppe 4</p>\n"
+        "    <p>Server: server.gruppe4.local | IP: 172.16.40.10</p>\n"
         "</body>\n</html>",
         styles):
         story.append(line)
@@ -719,7 +719,7 @@ def create_team_guide():
     story.append(Spacer(1, 0.15*cm))
     for line in make_code_block(
         "curl http://localhost\n"
-        "# oder:\ncurl http://172.16.30.10",
+        "# oder:\ncurl http://172.16.40.10",
         styles):
         story.append(line)
     story.append(Spacer(1, 0.2*cm))
@@ -814,16 +814,16 @@ def create_team_guide():
     story.append(make_step_box("1", "Client-Netzwerk konfigurieren", styles))
     story.append(Spacer(1, 0.15*cm))
     story.append(Paragraph(
-        "Gleiches Vorgehen wie beim Server, aber mit Client-IP 172.16.30.100:",
+        "Gleiches Vorgehen wie beim Server, aber mit Client-IP 172.16.40.100:",
         styles['body']
     ))
     for line in make_code_block(
         "sudo nano /etc/netplan/00-installer-config.yaml\n\n"
         "# Inhalt:\nnetwork:\n  version: 2\n  renderer: networkd\n  ethernets:\n"
         "    enp0s3:         # <-- Deinen Interface-Namen eintragen!\n"
-        "      addresses:\n        - 172.16.30.100/24\n"
-        "      routes:\n        - to: default\n          via: 172.16.30.1\n"
-        "      nameservers:\n        addresses: [172.16.30.10, 8.8.8.8]\n"
+        "      addresses:\n        - 172.16.40.100/24\n"
+        "      routes:\n        - to: default\n          via: 172.16.40.1\n"
+        "      nameservers:\n        addresses: [172.16.40.10, 8.8.8.8]\n"
         "      dhcp4: false\n\nsudo netplan apply",
         styles):
         story.append(line)
@@ -832,7 +832,7 @@ def create_team_guide():
     story.append(make_step_box("2", "Server in /etc/hosts eintragen", styles))
     story.append(Spacer(1, 0.15*cm))
     for line in make_code_block(
-        "echo '172.16.30.10  server.gruppe3.local intranet.gruppe3.local' | sudo tee -a /etc/hosts",
+        "echo '172.16.40.10  server.gruppe4.local intranet.gruppe4.local' | sudo tee -a /etc/hosts",
         styles):
         story.append(line)
     story.append(Spacer(1, 0.3*cm))
@@ -840,9 +840,9 @@ def create_team_guide():
     story.append(make_step_box("3", "Verbindung zum Server testen", styles))
     story.append(Spacer(1, 0.15*cm))
     for line in make_code_block(
-        "# Netzwerk testen:\nping -c 4 172.16.30.10\n\n"
-        "# SSH-Port testen:\nnc -zv 172.16.30.10 22\n\n"
-        "# Webserver testen:\ncurl http://172.16.30.10",
+        "# Netzwerk testen:\nping -c 4 172.16.40.10\n\n"
+        "# SSH-Port testen:\nnc -zv 172.16.40.10 22\n\n"
+        "# Webserver testen:\ncurl http://172.16.40.10",
         styles):
         story.append(line)
     story.append(PageBreak())
@@ -855,10 +855,10 @@ def create_team_guide():
     story.append(make_step_box("1", "SSH-Verbindung herstellen", styles))
     story.append(Spacer(1, 0.15*cm))
     for line in make_code_block(
-        "# Auf dem CLIENT ausführen:\nssh admin@172.16.30.10\n\n"
+        "# Auf dem CLIENT ausführen:\nssh admin@172.16.40.10\n\n"
         "# Beim ersten Verbinden: 'yes' eingeben und Enter drücken\n"
         "# Dann Passwort eingeben: Admin1234!\n\n"
-        "# Mit Hostname (nach /etc/hosts Eintrag):\nssh admin@server.gruppe3.local",
+        "# Mit Hostname (nach /etc/hosts Eintrag):\nssh admin@server.gruppe4.local",
         styles):
         story.append(line)
     story.append(Spacer(1, 0.3*cm))
@@ -871,12 +871,12 @@ def create_team_guide():
     ))
     for line in make_code_block(
         "# Auf dem CLIENT:\n"
-        "ssh-keygen -t rsa -b 4096 -C 'gruppe3-client'\n"
+        "ssh-keygen -t rsa -b 4096 -C 'gruppe4-client'\n"
         "# → Enter drücken für Standardpfad\n"
         "# → Passphrase: leer lassen (Enter) oder Passwort setzen\n\n"
-        "# Schlüssel auf Server kopieren:\nssh-copy-id admin@172.16.30.10\n"
+        "# Schlüssel auf Server kopieren:\nssh-copy-id admin@172.16.40.10\n"
         "# Passwort eingeben: Admin1234!\n\n"
-        "# Ab jetzt ohne Passwort verbinden:\nssh admin@172.16.30.10",
+        "# Ab jetzt ohne Passwort verbinden:\nssh admin@172.16.40.10",
         styles):
         story.append(line)
     story.append(Spacer(1, 0.3*cm))
@@ -888,7 +888,7 @@ def create_team_guide():
         styles['body']
     ))
     for line in make_code_block(
-        "# SSH-Verbindung herstellen:\nssh admin@172.16.30.10\n\n"
+        "# SSH-Verbindung herstellen:\nssh admin@172.16.40.10\n\n"
         "# Webseite bearbeiten:\nsudo nano /var/www/html/index.html\n\n"
         "# Apache neu starten:\nsudo systemctl restart apache2\n\n"
         "# Apache-Status prüfen:\nsudo systemctl status apache2\n\n"
@@ -910,9 +910,9 @@ def create_team_guide():
     story.append(Spacer(1, 0.2*cm))
 
     browser_steps = [
-        ['Via IP-Adresse:', 'http://172.16.30.10', 'Direkte IP-Adresse des Servers'],
-        ['Via Hostname:', 'http://server.gruppe3.local', 'Nach /etc/hosts Eintrag'],
-        ['Via Alias:', 'http://intranet.gruppe3.local', 'Alternativer Hostname'],
+        ['Via IP-Adresse:', 'http://172.16.40.10', 'Direkte IP-Adresse des Servers'],
+        ['Via Hostname:', 'http://server.gruppe4.local', 'Nach /etc/hosts Eintrag'],
+        ['Via Alias:', 'http://intranet.gruppe4.local', 'Alternativer Hostname'],
     ]
     browser_t = Table(browser_steps, colWidths=[4*cm, 6*cm, 6.5*cm])
     browser_t.setStyle(TableStyle([
@@ -963,7 +963,7 @@ def create_team_guide():
         "Netzwerk-Interface auswählen (z.B. enp0s3)",
         "Filter eingeben: tcp.port == 80",
         "Start-Button klicken (blaues Haifisch-Symbol)",
-        "Auf dem Client im Browser die Webseite aufrufen: http://172.16.30.10",
+        "Auf dem Client im Browser die Webseite aufrufen: http://172.16.40.10",
         "Pakete beobachten!",
     ]
     for i, s in enumerate(wireshark_steps, 1):
@@ -974,7 +974,7 @@ def create_team_guide():
     for line in make_code_block(
         "# HTTP-Verkehr beobachten:\nsudo tcpdump -i enp0s3 port 80 -v\n\n"
         "# SSH-Verkehr beobachten:\nsudo tcpdump -i enp0s3 port 22 -v\n\n"
-        "# Alle Pakete vom Server:\nsudo tcpdump -i enp0s3 host 172.16.30.10 -v",
+        "# Alle Pakete vom Server:\nsudo tcpdump -i enp0s3 host 172.16.40.10 -v",
         styles):
         story.append(line)
     story.append(PageBreak())
@@ -986,14 +986,14 @@ def create_team_guide():
 
     story.append(Paragraph("Checkliste – alle Tests durchführen und Screenshots machen:", styles['h3']))
     tests = [
-        ['☐', 'Server-IP konfiguriert', 'ip addr show → 172.16.30.10 sichtbar'],
-        ['☐', 'Client-IP konfiguriert', 'ip addr show → 172.16.30.100 sichtbar'],
-        ['☐', 'Ping Server → Client', 'ping 172.16.30.100 (vom Server)'],
-        ['☐', 'Ping Client → Server', 'ping 172.16.30.10 (vom Client)'],
-        ['☐', 'SSH-Verbindung', 'ssh admin@172.16.30.10 → Login erfolgreich'],
+        ['☐', 'Server-IP konfiguriert', 'ip addr show → 172.16.40.10 sichtbar'],
+        ['☐', 'Client-IP konfiguriert', 'ip addr show → 172.16.40.100 sichtbar'],
+        ['☐', 'Ping Server → Client', 'ping 172.16.40.100 (vom Server)'],
+        ['☐', 'Ping Client → Server', 'ping 172.16.40.10 (vom Client)'],
+        ['☐', 'SSH-Verbindung', 'ssh admin@172.16.40.10 → Login erfolgreich'],
         ['☐', 'SSH-Banner sichtbar', 'Banner erscheint beim Login'],
         ['☐', 'Webserver läuft', 'systemctl status apache2 → active'],
-        ['☐', 'Browser zeigt Webseite', 'http://172.16.30.10 im Browser'],
+        ['☐', 'Browser zeigt Webseite', 'http://172.16.40.10 im Browser'],
         ['☐', 'Firewall aktiv', 'sudo ufw status verbose'],
         ['☐', 'Wireshark: HTTP-Pakete', 'HTTP-Anfrage in Wireshark sichtbar'],
         ['☐', 'Webseite via SSH ändern', 'Änderung via SSH → Webseite aktualisiert'],
@@ -1045,8 +1045,8 @@ def create_team_guide():
     final_box = Table([[Paragraph(
         "🎉 Viel Erfolg bei der Präsentation!\n\n"
         "GitHub: https://github.com/kluthjan/uwearbeit\n"
-        "Team: Jan, Marian, Mathias, Marco | Gruppe 3\n"
-        "Netzwerk: 172.16.30.0/24 | Server: 172.16.30.10",
+        "Team: Jan, Marian, Mathias, Marco | Gruppe 4\n"
+        "Netzwerk: 172.16.40.0/24 | Server: 172.16.40.10",
         ParagraphStyle('Final', fontName='Helvetica-Bold', fontSize=12,
                        textColor=colors.white, alignment=TA_CENTER)
     )]], colWidths=[W])
@@ -1099,11 +1099,11 @@ def create_project_documentation():
     meta = [
         ['Projekt', 'Gruppenarbeit 4 – IT-Systeme'],
         ['Thema', 'Webserver mit SSH-Fernadministration'],
-        ['Team (Gruppe 3)', 'Jan (Leiter), Marian, Mathias, Marco'],
+        ['Team (Gruppe 4)', 'Jan (Leiter), Marian, Mathias, Marco'],
         ['Auftraggeber', 'Müller & Partner GmbH (fiktiv)'],
-        ['Netzwerk', '172.16.30.0/24'],
-        ['Server', '172.16.30.10 (server.gruppe3.local)'],
-        ['Client', '172.16.30.100 (client.gruppe3.local)'],
+        ['Netzwerk', '172.16.40.0/24'],
+        ['Server', '172.16.40.10 (server.gruppe4.local)'],
+        ['Client', '172.16.40.100 (client.gruppe4.local)'],
         ['Datum', '2026'],
     ]
     mt = Table(meta, colWidths=[5*cm, 10.5*cm])
@@ -1122,19 +1122,19 @@ def create_project_documentation():
         ("1. Projektinitiierung", [
             ("Ausgangssituation", "Die Müller & Partner GmbH möchte ein internes Intranet für ihre Mitarbeiter bereitstellen. Informationen, Ankündigungen und interne Hinweise sollen zentral veröffentlicht werden. Der Server soll über SSH fernadministriert werden können."),
             ("Kundenauftrag", "Installation und Konfiguration eines Webservers (Apache HTTP) und SSH-Servers (OpenSSH) in einer virtualisierten Umgebung (VirtualBox). Einrichtung einer Firewall (UFW). Client soll Webseite im Browser aufrufen und per SSH administrieren können."),
-            ("Zieldefinition", "✓ Apache Webserver läuft auf 172.16.30.10:80\n✓ SSH-Server läuft auf 172.16.30.10:22\n✓ Client kann Webseite im Browser öffnen\n✓ Client kann per SSH den Server administrieren\n✓ Firewall erlaubt nur Port 22 und 80"),
+            ("Zieldefinition", "✓ Apache Webserver läuft auf 172.16.40.10:80\n✓ SSH-Server läuft auf 172.16.40.10:22\n✓ Client kann Webseite im Browser öffnen\n✓ Client kann per SSH den Server administrieren\n✓ Firewall erlaubt nur Port 22 und 80"),
         ]),
         ("2. Projektplanung", [
-            ("Netzwerkkonzept", "Netzwerk: 172.16.30.0/24\nServer: 172.16.30.10 (static)\nClient: 172.16.30.100 (static)\nGateway: 172.16.30.1\nVirtualBox: Internes Netzwerk 'intnet-gruppe3'"),
+            ("Netzwerkkonzept", "Netzwerk: 172.16.40.0/24\nServer: 172.16.40.10 (static)\nClient: 172.16.40.100 (static)\nGateway: 172.16.40.1\nVirtualBox: Internes Netzwerk 'intnet-gruppe4'"),
             ("Zeitplanung", "Tag 1: VMs einrichten, Netzwerk konfigurieren\nTag 2: SSH und Apache installieren\nTag 3: Firewall, Tests, Wireshark\nTag 4: Dokumentation und Präsentation"),
             ("Ressourcen", "Software: VirtualBox, Ubuntu Server 22.04, Ubuntu Desktop 22.04\nDienste: OpenSSH-Server, Apache2, UFW\nTools: Wireshark, tcpdump, curl"),
         ]),
         ("3. Projektdurchführung", [
-            ("Server-VM einrichten", "Ubuntu Server 22.04 LTS installiert, statische IP 172.16.30.10 über Netplan konfiguriert, Hostname 'server.gruppe3.local' gesetzt."),
-            ("SSH-Server", "OpenSSH-Server installiert und konfiguriert. PermitRootLogin=no, PasswordAuthentication=yes, AllowUsers nur aus 172.16.30.0/24. SSH-Banner erstellt."),
+            ("Server-VM einrichten", "Ubuntu Server 22.04 LTS installiert, statische IP 172.16.40.10 über Netplan konfiguriert, Hostname 'server.gruppe4.local' gesetzt."),
+            ("SSH-Server", "OpenSSH-Server installiert und konfiguriert. PermitRootLogin=no, PasswordAuthentication=yes, AllowUsers nur aus 172.16.40.0/24. SSH-Banner erstellt."),
             ("Apache Webserver", "Apache2 installiert. Intranet-Startseite unter /var/www/html/index.html erstellt. Webseite enthält Firmeninformationen, Ankündigungen und Serverinformationen."),
             ("Firewall UFW", "UFW installiert. Standard-Policy: deny incoming, allow outgoing. Eingehend erlaubt: Port 22 (SSH) und Port 80 (HTTP). Alle anderen Ports geblockt."),
-            ("Client-VM", "Ubuntu Desktop eingerichtet, statische IP 172.16.30.100. Server in /etc/hosts eingetragen. SSH-Schlüsselpaar generiert."),
+            ("Client-VM", "Ubuntu Desktop eingerichtet, statische IP 172.16.40.100. Server in /etc/hosts eingetragen. SSH-Schlüsselpaar generiert."),
         ]),
         ("4. Projektabschluss", [
             ("Ergebnisse", "Alle Ziele wurden erreicht:\n✅ SSH-Verbindung vom Client zum Server funktioniert\n✅ Webseite im Browser des Clients erreichbar\n✅ Webserver kann per SSH administriert werden\n✅ Firewall aktiv und korrekt konfiguriert\n✅ Netzwerkanalyse mit Wireshark durchgeführt"),
@@ -1188,7 +1188,7 @@ def create_project_plan():
     story.append(tb)
     story.append(Spacer(1, 0.5*cm))
 
-    story.append(Paragraph("Aufgabenverteilung – Gruppe 3", styles['h2']))
+    story.append(Paragraph("Aufgabenverteilung – Gruppe 4", styles['h2']))
     tasks = [
         ['Aufgabe', 'Verantwortlich', 'Status'],
         ['VMs in VirtualBox einrichten', 'Jan', '○ Offen'],
@@ -1246,7 +1246,7 @@ def create_project_plan():
 if __name__ == "__main__":
     print("=" * 60)
     print("PDF-Generator für Gruppenarbeit 4")
-    print("Gruppe 3: Jan, Marian, Mathias, Marco")
+    print("Gruppe 4: Jan, Marian, Mathias, Marco")
     print("=" * 60)
 
     paths = []
