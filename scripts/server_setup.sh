@@ -2,8 +2,8 @@
 # =============================================================================
 # Gruppenarbeit 4 - Server-Setup Script
 # Webserver (Apache) + SSH-Fernadministration
-# Gruppe 3 - Jan, Marian, Mathias, Marco
-# Netzwerk: 172.16.30.0/24  |  Server: 172.16.30.10
+# Gruppe 4 - Jan, Marian, Mathias, Marco
+# Netzwerk: 172.16.40.0/24  |  Server: 172.16.40.10
 # =============================================================================
 
 set -e
@@ -15,13 +15,13 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 NC='\033[0m'
 
-SERVER_IP="172.16.30.10"
-SUBNET="172.16.30.0/24"
-GATEWAY="172.16.30.1"
+SERVER_IP="172.16.40.10"
+SUBNET="172.16.40.0/24"
+GATEWAY="172.16.40.1"
 DNS_SERVER="8.8.8.8"
 INTERFACE="eth0"
-HOSTNAME_FQDN="server.gruppe3.local"
-ZONE="gruppe3.local"
+HOSTNAME_FQDN="server.gruppe4.local"
+ZONE="gruppe4.local"
 WEBROOT="/var/www/html"
 
 print_header() {
@@ -103,13 +103,13 @@ EOF
     fi
     
     # Set hostname
-    hostnamectl set-hostname server.gruppe3.local
+    hostnamectl set-hostname server.gruppe4.local
     
     # Update /etc/hosts
-    sed -i '/server.gruppe3.local/d' /etc/hosts
-    echo "${SERVER_IP}  server.gruppe3.local server" >> /etc/hosts
+    sed -i '/server.gruppe4.local/d' /etc/hosts
+    echo "${SERVER_IP}  server.gruppe4.local server" >> /etc/hosts
     
-    print_step "Hostname auf 'server.gruppe3.local' gesetzt"
+    print_step "Hostname auf 'server.gruppe4.local' gesetzt"
     echo -e "\n${CYAN}Aktuelle IP-Konfiguration:${NC}"
     ip addr show ${ACTUAL_IF} 2>/dev/null || ip addr show
 }
@@ -139,7 +139,7 @@ configure_ssh() {
     cat > /etc/ssh/sshd_config <<EOF
 # ============================================================
 # SSH-Server Konfiguration - Gruppenarbeit 4
-# Gruppe 3 - Jan, Marian, Mathias, Marco
+# Gruppe 4 - Jan, Marian, Mathias, Marco
 # ============================================================
 
 # Basis-Einstellungen
@@ -174,7 +174,7 @@ X11Forwarding yes
 PrintMotd no
 
 # Erlaubte Verbindungen nur aus dem eigenen Netzwerk
-AllowUsers *@172.16.30.*
+AllowUsers *@172.16.40.*
 
 # Sftp aktivieren
 Subsystem sftp /usr/lib/openssh/sftp-server
@@ -188,8 +188,8 @@ EOF
 
   ====================================================
    Müller & Partner GmbH - Internes Serversystem
-   Server: server.gruppe3.local (${SERVER_IP})
-   Gruppe 3: Jan, Marian, Mathias, Marco
+   Server: server.gruppe4.local (${SERVER_IP})
+   Gruppe 4: Jan, Marian, Mathias, Marco
    NUR autorisierter Zugriff!
   ====================================================
 
@@ -199,7 +199,7 @@ EOF
     systemctl restart ssh
     
     print_step "SSH-Server konfiguriert und gestartet"
-    print_step "Nur Verbindungen aus 172.16.30.0/24 erlaubt"
+    print_step "Nur Verbindungen aus 172.16.40.0/24 erlaubt"
     print_step "Root-Login deaktiviert"
 }
 
@@ -214,14 +214,14 @@ configure_apache() {
     # Apache konfigurieren
     cat > /etc/apache2/sites-available/intranet.conf <<EOF
 <VirtualHost *:80>
-    ServerName server.gruppe3.local
-    ServerAlias intranet.gruppe3.local
-    ServerAdmin admin@gruppe3.local
+    ServerName server.gruppe4.local
+    ServerAlias intranet.gruppe4.local
+    ServerAdmin admin@gruppe4.local
     DocumentRoot /var/www/html
 
     # Logging
-    ErrorLog \${APACHE_LOG_DIR}/gruppe3_error.log
-    CustomLog \${APACHE_LOG_DIR}/gruppe3_access.log combined
+    ErrorLog \${APACHE_LOG_DIR}/gruppe4_error.log
+    CustomLog \${APACHE_LOG_DIR}/gruppe4_access.log combined
 
     # Sicherheitseinstellungen
     <Directory /var/www/html>
@@ -231,7 +231,7 @@ configure_apache() {
     </Directory>
     
     # Nur internes Netzwerk
-    # Require ip 172.16.30.0/24
+    # Require ip 172.16.40.0/24
 </VirtualHost>
 EOF
 
@@ -367,8 +367,8 @@ EOF
     <div class="hero">
         <h1>Willkommen im <span>Intranet</span></h1>
         <p>Internes Informationsportal der Müller &amp; Partner GmbH</p>
-        <span class="badge">🌐 server.gruppe3.local</span>
-        <span class="badge">📡 172.16.30.10</span>
+        <span class="badge">🌐 server.gruppe4.local</span>
+        <span class="badge">📡 172.16.40.10</span>
         <span class="badge">🔒 Nur interner Zugriff</span>
     </div>
 
@@ -389,9 +389,9 @@ EOF
             <div class="card-icon">🖥️</div>
             <h3>Serverinformationen</h3>
             <div class="server-info">
-                Hostname: server.gruppe3.local<br>
-                IP-Adresse: 172.16.30.10<br>
-                Netzwerk: 172.16.30.0/24<br>
+                Hostname: server.gruppe4.local<br>
+                IP-Adresse: 172.16.40.10<br>
+                Netzwerk: 172.16.40.0/24<br>
                 Dienste: Apache2, OpenSSH<br>
                 Firewall: UFW (aktiv)<br>
                 Ports: 22 (SSH), 80 (HTTP)
@@ -399,7 +399,7 @@ EOF
         </div>
         <div class="card">
             <div class="card-icon">👥</div>
-            <h3>IT-Team Gruppe 3</h3>
+            <h3>IT-Team Gruppe 4</h3>
             <p>Projektarbeit 4 - Webserver mit SSH-Fernadministration</p>
             <br>
             <p>
@@ -412,8 +412,8 @@ EOF
     </div>
 
     <footer>
-        <p>Müller &amp; Partner GmbH &bull; Intranet &bull; Gruppenarbeit 4 &bull; Gruppe 3</p>
-        <p style="margin-top:5px;">Server: server.gruppe3.local | Apache/2 | Linux</p>
+        <p>Müller &amp; Partner GmbH &bull; Intranet &bull; Gruppenarbeit 4 &bull; Gruppe 4</p>
+        <p style="margin-top:5px;">Server: server.gruppe4.local | Apache/2 | Linux</p>
     </footer>
 </body>
 </html>
@@ -518,7 +518,7 @@ print_summary() {
     print_header "✅ SETUP ABGESCHLOSSEN - ZUSAMMENFASSUNG"
     
     echo -e "${GREEN}Server-Konfiguration:${NC}"
-    echo -e "  📍 Hostname:    server.gruppe3.local"
+    echo -e "  📍 Hostname:    server.gruppe4.local"
     echo -e "  🌐 IP-Adresse:  ${SERVER_IP}"
     echo -e "  🔌 Netzwerk:    ${SUBNET}"
     echo -e ""
@@ -533,7 +533,7 @@ print_summary() {
     echo -e ""
     echo -e "${GREEN}Erreichbar über:${NC}"
     echo -e "  🌐 Webseite:    http://${SERVER_IP}"
-    echo -e "  🌐 Webseite:    http://server.gruppe3.local (nach DNS-Eintrag)"
+    echo -e "  🌐 Webseite:    http://server.gruppe4.local (nach DNS-Eintrag)"
     echo -e "  💻 SSH:         ssh admin@${SERVER_IP}"
     echo -e ""
     echo -e "${YELLOW}Hinweis: Bitte das Admin-Passwort in der Produktion ändern!${NC}"
@@ -544,7 +544,7 @@ print_summary() {
 # =============================================================================
 main() {
     print_header "Gruppenarbeit 4 - Webserver + SSH Setup"
-    echo -e "Team: Jan, Marian, Mathias, Marco (Gruppe 3)"
+    echo -e "Team: Jan, Marian, Mathias, Marco (Gruppe 4)"
     echo -e "Netzwerk: ${SUBNET} | Server: ${SERVER_IP}"
     
     check_root
